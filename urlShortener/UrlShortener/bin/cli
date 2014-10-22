@@ -1,0 +1,15 @@
+puts "What is your email?"
+user_email = gets.chomp
+#make new user if not existing
+unless User.exists?(:email => user_email)
+  User.create!(:email => user_email)
+end
+puts "What do you want to do?"
+puts "0. Create shortened URL"
+puts "1. Visit shortened URL"
+user_option = gets.chomp.to_i
+if user_option == 1
+  puts "Type in your long URL"
+  long_url = gets.chomp
+  ShortenedUrl.create_for_user_and_long_url()
+  

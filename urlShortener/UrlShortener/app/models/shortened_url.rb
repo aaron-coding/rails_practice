@@ -12,12 +12,13 @@ class ShortenedUrl < ActiveRecord::Base
   has_many(
     :visits,
     class_name: 'Visit',
-    foreign_key: :shortened_url_id,
+    foreign_key: :short_url_id,
     primary_key: :id
   )
   
   has_many(
     :visitors,
+    Proc.new { distinct }, 
     through: :visits,
     source: :user
   )
@@ -41,4 +42,24 @@ class ShortenedUrl < ActiveRecord::Base
                          short_url: self.random_code)
   end
   
+  
+  def num_clicks
+    Visit.where(short_url_id: self.id).count
+  end
+  
+  def num_uniques
+    visitors.count
+  end
+  
+  def num_recent_uniques
+    Visit
+      .select("user_id")
+      .distinct
+      .where('short_url_id = ? AND created_at < ?', self.id, 10.minutes.ago)
+      .count    
+  end
+  
 end
+
+# where -> hash syntax
+# where(short_url_id: 1, created_at: Time.now)
