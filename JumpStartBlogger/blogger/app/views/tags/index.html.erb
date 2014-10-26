@@ -4,12 +4,14 @@
   <% @tags.each do |tag| %>
     <li>
       <%= link_to tag.name, tag_path(tag), 
-      class: 'tag_title' %>
+      class: 'tag_title' %> <%= link_to "delete tag", tag_path(tag), style: 'padding-left: 25px', method: :delete, data: {confirm: "Really delete this tag?"} %>
     </li>
     <% end %>
   </ul>
-
-<!--    <%= link_to "Create a new article", new_tag_path, 
-        class: 'new_tag' %>>
+  <ul>
+    <li>
+    <%= link_to "Back to Articles", articles_path%>
+  </li>
+  </ul>
 
   
