@@ -1,0 +1,23 @@
+<h1> Make a new Track </h1>
+
+<form action="<%= tracks_url %>" method="POST">
+
+  <label for="track_name">Name: </label>
+  <input type="text" 
+   name="track[name]" 
+   id="track_name"
+   value="<%= @track.name %>">
+  <br>
+  <label for="track_album_id">Which album is the track part of? </label>
+  <select name="track[album_id]" id="track_album_id">
+    <option></option>
+  <% @albums.each do |album| %>
+    <option 
+      value="<%= album.id %>"
+      <%= "selected" if album.id == @track.album_id %> 
+      ><%= album.name %></option>
+  <% end %>
+  </select>
+  <br>
+  <input type="submit" value="Make Album">
+</form>

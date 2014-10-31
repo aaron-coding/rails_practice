@@ -1,0 +1,8 @@
+<h1>Track page</h1>
+<p><%= @track.name %></p>
+
+<ul>
+  <li> <%= link_to "Edit your track", edit_track_url(@track) %> </li>
+  <li> Destroy your track: 
+    <%= button_to "Destroy", track_url(@track), method: :delete %></li>
+</ul>

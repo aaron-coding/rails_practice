@@ -1,0 +1,8 @@
+<h1>Album page</h1>
+<p><%= @album.name %></p>
+
+<ul>
+  <li> <%= link_to "Edit your album", edit_album_url(@album) %> </li>
+  <li> Destroy your album: 
+    <%= button_to "Destroy", album_url(@album), method: :delete %></li>
+</ul>
