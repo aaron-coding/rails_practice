@@ -2,6 +2,10 @@
 
 <form action="<%= albums_url %>" method="POST">
 
+  <input type="hidden" 
+    name="authenticity_token" 
+    value="<%= form_authenticity_token %>" >
+    
   <label for="album_name">Name: </label>
   <input type="text" 
    name="album[name]" 

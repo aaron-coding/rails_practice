@@ -1,6 +1,9 @@
 <h1> Make a new Track </h1>
 
 <form action="<%= tracks_url %>" method="POST">
+  <input type="hidden" 
+    name="authenticity_token" 
+    value="<%= form_authenticity_token %>" >
 
   <label for="track_name">Name: </label>
   <input type="text" 
