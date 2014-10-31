@@ -19,5 +19,29 @@
   <% end %>
   </select>
   <br>
-  <input type="submit" value="Edit Album">
+
+    <br>
+    <label for="track_bonus">Bonus:<label>
+    <input type="radio" 
+      name="track[bonus]" 
+      id="track_bonus" 
+      value="bonus"
+      <%= "checked" if @track.bonus == "bonus" %>
+      >
+    <br>
+  
+    <label for="track_regular">Regular:<label>
+    <input type="radio" 
+      name="track[bonus]" 
+      id="track_regular" 
+      value="regular"
+      <%= "checked" if @track.bonus == "regular" %>
+      >
+    <br>
+    
+  <label for="track_lyrics"></label>
+  <textarea name="track[lyrics]" id="track_lyrics"><%= @track.lyrics%></textarea>
+
+  
+  <input type="submit" value="Edit Track">
 </form>

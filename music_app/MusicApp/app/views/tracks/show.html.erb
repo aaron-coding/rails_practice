@@ -5,4 +5,7 @@
   <li> <%= link_to "Edit your track", edit_track_url(@track) %> </li>
   <li> Destroy your track: 
     <%= button_to "Destroy", track_url(@track), method: :delete %></li>
+  <li><%= link_to "Your Album:", album_url(@track.album_id) %></li>
 </ul>
+
+<p><%= link_to "Make a new track", new_album_track_url(@track.album_id) %></p>

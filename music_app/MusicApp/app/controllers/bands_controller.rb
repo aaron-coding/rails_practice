@@ -1,6 +1,8 @@
 class BandsController < ApplicationController
+  before_action :require_logged_in
   def index
-    render json: Band.all
+    @bands = Band.all
+    render :index
   end
   
   def new

@@ -1,5 +1,5 @@
 class TracksController < ApplicationController
-  
+  before_action :require_logged_in
   def create
     @track = Track.new(track_params)
     if @track.save
@@ -39,14 +39,19 @@ class TracksController < ApplicationController
   end
   
   def destroy
-    
+    @track = Track.find(params[:id])
+    if @track.destroy
+      redirect_to bands_url
+    else
+      render :show
+    end
   end
   
   
   private
   
   def track_params
-    params.require(:track).permit(:name, :album_id)
+    params.require(:track).permit(:name, :album_id, :bonus, :lyrics)
   end
     
 end

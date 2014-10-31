@@ -5,4 +5,12 @@
   <li> <%= link_to "Edit your band", edit_band_url(@band) %> </li>
   <li> Destroy your band: 
     <%= button_to "Destroy", band_url(@band), method: :delete %></li>
+  <li><%= link_to "All Bands", bands_url %></li>
 </ul>
+
+<h2>Your Albums</h2>
+<% @band.albums.each do |album| %>
+  <p>Album name: <%= album.name %> 
+    <strong><%= album.live ? "Live" : "Not Live" %></strong></p>
+<% end %>
+<p><%= link_to "Make a new album", new_band_album_url(@band) %></p>
