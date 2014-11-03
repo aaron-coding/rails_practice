@@ -2,16 +2,16 @@
 <html>
 <head>
   <title>MusicApp</title>
-  <% if logged_in? %>
-  <h3>You are logged in. </h3>
-  <%= button_to "sign-out", session_url , method: :delete  %>
-    <% end %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+  <% if logged_in? %>
+    <h3>You are logged in. </h3>
+    <%= button_to "sign-out", session_url , method: :delete  %>
+  <% end %>
+  <%= flash[:errors] %>
 <%= yield %>
 
 </body>

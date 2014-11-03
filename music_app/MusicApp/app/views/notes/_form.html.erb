@@ -1,0 +1,17 @@
+<form action="<%= notes_url %>" method="POST">
+  <input type="hidden"
+    name="authenticity_token"
+    value="<%= form_authenticity_token %>">
+    
+  <label for="note_note">Note: </label>
+  <input type="text"
+    name="note[note]"
+    id="note_note">  
+    
+  <input type="hidden"
+    name="note[track_id]"
+    value="<%= @track.id %>">
+    
+  <input type="submit"
+    value="Make Note">
+</form>

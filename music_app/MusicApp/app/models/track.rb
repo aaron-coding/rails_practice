@@ -16,4 +16,5 @@ class Track < ActiveRecord::Base
   validates :bonus, inclusion: ["bonus", "regular"]
   
   belongs_to :album
+  has_many :notes
 end
