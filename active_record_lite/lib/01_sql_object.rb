@@ -23,7 +23,6 @@ class SQLObject
       define_method(col_name) do
         attributes[col_name]
       end
-
       define_method("#{col_name}=") do |arg|
         attributes[col_name] = arg
       end

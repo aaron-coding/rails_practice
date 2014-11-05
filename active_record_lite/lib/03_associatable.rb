@@ -44,11 +44,11 @@ end
 
 module Associatable
   def belongs_to(name, options = {})
+    assoc_options[name] = BelongsToOptions.new(name, options)
+    #save assoc_options for use in the has_one_through
     
-
-    define_method(name) do
+    define_method(name) do  
       options = BelongsToOptions.new(name, options)
-
       val_of_our_foreign_key = self.send(options.foreign_key)
       hashes = DBConnection.execute(<<-SQL, val_of_our_foreign_key)
       SELECT *
@@ -75,13 +75,14 @@ module Associatable
       hashes.map { |data| options.model_class.new(data) }
     end
     
-
   end
 
   def assoc_options
     @assoc_options ||= {}
        @assoc_options
   end
+  
+  
 end
 
 class SQLObject
