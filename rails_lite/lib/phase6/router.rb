@@ -9,18 +9,24 @@ module Phase6
 
     # checks if pattern matches path and method matches request method
     def matches?(req)
-      if req.path =~ @pattern
-        true
-      else
-        false
-      end
+      !!(req.path =~ @pattern) && req.request_method.downcase.to_sym == http_method
     end
 
     # use pattern to pull out route params (save for later?)
     # instantiate controller and call controller action
     def run(req, res)
-      controller_class.new(req, res).invoke_action(action_name)
+      saved_hash = {}
+      match_data = pattern.match(req.path)
+      if !(match_data.captures.empty?)
+        match_data.names.each do |name|
+            saved_hash[name] = match_data[name]
+        end
+        controller_class.new(req, res, saved_hash).invoke_action(action_name)
+      else
+        controller_class.new(req, res).invoke_action(action_name)
+      end
     end
+    
   end
 
   class Router
@@ -38,15 +44,14 @@ module Phase6
     # evaluate the proc in the context of the instance
     # for syntactic sugar :)
     def draw(&proc)
-      self.instance_eval { proc } 
+      self.instance_eval &proc 
     end
 
     # make each of these methods that
     # when called add route
     [:get, :post, :put, :delete].each do |http_method|
-
-      define_method(http_method) do |pattern, controller_class, action_name|
-        @routes += [Route.new(pattern, http_method, controller_class, action_name)]
+      define_method(http_method.to_s) do |pattern, controller_class, action_name|
+        add_route(pattern, http_method, controller_class, action_name)
       end
 
     end
