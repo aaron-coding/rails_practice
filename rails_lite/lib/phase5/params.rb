@@ -35,34 +35,22 @@ module Phase5
     class AttributeNotFoundError < ArgumentError; end;
 
     private
-    # this should return deeply nested hash
+    # this returns a deeply nested hash
     # argument format
     # user[address][street]=main&user[address][zip]=89436
     # should return
     # { "user" => { "address" => { "street" => "main", "zip" => "89436" } } }
     def parse_www_encoded_form(www_encoded_form)
-      _query = URI.decode_www_form(www_encoded_form)
-      _query.each do |key, val|
-        if parse_key(key).count == 1
-          @params[key] = val
-        else
-          nested_hash = {}
-          all_keys = parse_key(key)
-          first = true
-          all_keys.reverse.each do |key|  # build a nested hash
-            if first                      # First assign value
-              nested_hash[key] = val      
-            else
-              new_hash = {}               # put it into a nested hash
-              new_hash[key] = nested_hash # until iterate through all 
-              nested_hash = new_hash      # parts
-            end
-            first = false
+      parsed_set = URI.decode_www_form(www_encoded_form)
+      parsed_set.each do |key, val| 
+          key_set = parse_key(key)  #Create array from keys  
+          current = @params         #Set params and modify it while iterating
+          key_set[0..-2].each do |key|
+            current[key] ||= {}     #make a new hash if not existing
+            current = current[key]  #reference hash within the params
           end
-          @params = nested_hash
-        end
+          current[key_set[-1]] = val  #assign value to last key
       end
-      
     end
 
     # this returns an array
