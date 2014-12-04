@@ -1,5 +1,3 @@
-# Active Record Lite!
+# Active Record Lite
 
-Instructions for the project may be found [here][instructions].
-
-[instructions]: https://github.com/appacademy/sql-curriculum/blob/master/projects/w3d5-build-your-own-ar.md
+Recreates the core functionality of Ruby on Rail’s Active Record. Built with Ruby’s inherent metaprogramming, it also uses custom SQL searches based on the user’s request.
