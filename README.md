@@ -1,4 +1,4 @@
-rails_projects
+Rails Projects
 ==============
 Here is a short collection of rails projects I created in about 2 weeks.
 
